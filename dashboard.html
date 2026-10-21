@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BinBuddy | Smart Waste Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <a class="brand" href="#" onclick="showPage('home'); return false;">
+            <span class="brand-icon"><i data-lucide="recycle"></i></span>
+            <span>Bin<span class="brand-light">Buddy</span></span>
+        </a>
+
+        <div class="nav-label">WORKSPACE</div>
+
+        <nav class="navigation">
+            <button class="nav-item active" data-page="home" onclick="showPage('home')">
+                <i data-lucide="layout-dashboard"></i> Overview
+            </button>
+            <button class="nav-item" data-page="report" onclick="showPage('report')">
+                <i data-lucide="clipboard-list"></i> Report Waste
+            </button>
+            <button class="nav-item" data-page="complaints" onclick="showPage('complaints')">
+                <i data-lucide="list-checks"></i> Track Complaints
+                <span class="nav-count" id="complaintCount">0</span>
+            </button>
+            <button class="nav-item" data-page="scanner" onclick="showPage('scanner')">
+                <i data-lucide="scan-search"></i> AI Waste Scanner
+            </button>
+            <button class="nav-item" data-page="assistant" onclick="showPage('assistant')">
+                <i data-lucide="messages-square"></i> AI Assistant
+            </button>
+            <button class="nav-item" data-page="calculator" onclick="showPage('calculator')">
+                <i data-lucide="calculator"></i> Impact Calculator
+            </button>
+            <button class="nav-item" data-page="reports" onclick="showPage('reports')">
+                <i data-lucide="chart-no-axes-combined"></i> Progress & Reports
+            </button>
+            <button class="nav-item" data-page="community" onclick="showPage('community')">
+                <i data-lucide="users"></i> Community
+            </button>
+        </nav>
+
+        <div class="sidebar-spacer"></div>
+
+        <div class="eco-card">
+            <div class="eco-icon"><i data-lucide="sprout"></i></div>
+            <h3>Small steps, greener planet.</h3>
+            <p>Every correctly sorted item makes a difference.</p>
+            <button class="text-button" onclick="showPage('community')">
+                Explore green tips <i data-lucide="arrow-up-right"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-footer">
+            <span class="online-dot"></span>
+            Made for a cleaner tomorrow
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <header class="topbar">
+            <button class="mobile-menu" onclick="toggleSidebar()" aria-label="Toggle menu">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <div class="breadcrumb">
+                <span>Workspace</span>
+                <i data-lucide="chevron-right"></i>
+                <strong id="breadcrumbPage">Overview</strong>
+            </div>
+
+            <div class="topbar-right">
+                <div class="date-display">
+                    <i data-lucide="calendar-days"></i>
+                    <span id="todayDate"></span>
+                </div>
+                <button class="icon-button" onclick="showPage('assistant')" title="Ask BinBuddy">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <div class="avatar">BB</div>
+            </div>
+        </header>
+
+        <div class="page-container">
+
+            <!-- HOME PAGE -->
+            <section class="page active" id="page-home">
+                <div class="welcome-row">
+                    <div>
+                        <div class="eyebrow"><span class="online-dot"></span> YOUR EVERYDAY ECO COMPANION</div>
+                        <h1>A cleaner world starts <span class="green-text">with you.</span></h1>
+                        <p class="subtitle">Manage waste smarter, report local issues and make everyday sustainable choices.</p>
+                    </div>
+                    <button class="primary-button" onclick="showPage('report')">
+                        <i data-lucide="plus"></i> Report an issue
+                    </button>
+                </div>
+
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <span class="hero-tag">YOUR DAILY GREEN ROUTINE</span>
+                        <h2>Good habits.<br>Less waste. Better future.</h2>
+                        <p>Sort smarter, recycle more and keep your surroundings clean with BinBuddy.</p>
+                        <button class="hero-button" onclick="showPage('scanner')">
+                            Identify my waste <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="hero-art">
+                        <div class="orbit orbit-one"></div>
+                        <div class="orbit orbit-two"></div>
+                        <div class="plant-emoji">🌿</div>
+                        <div class="hero-bin">♻️</div>
+                        <div class="floating-leaf leaf-one">🍃</div>
+                        <div class="floating-leaf leaf-two">🌱</div>
+                    </div>
+                </div>
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Your waste overview</h2>
+                        <p>A quick look at your activity on BinBuddy.</p>
+                    </div>
+                    <span class="demo-label">LIVE ON THIS DEVICE</span>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon green-bg"><i data-lucide="clipboard-check"></i></span>
+                            <span class="stat-caption">ALL TIME</span>
+                        </div>
+                        <div class="stat-number" id="statReports">0</div>
+                        <div class="stat-name">Issues reported</div>
+                        <div class="stat-note">Your submitted waste reports</div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon orange-bg"><i data-lucide="clock-3"></i></span>
+                            <span class="stat-caption">NEEDS ATTENTION</span>
+                        </div>
+                        <div class="stat-number" id="statPending">0</div>
+                        <div class="stat-name">Open complaints</div>
+                        <div class="stat-note">Awaiting resolution</div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon blue-bg"><i data-lucide="recycle"></i></span>
+                            <span class="stat-caption">YOUR ACTIVITY</span>
+                        </div>
+                        <div class="stat-number" id="statResolved">0</div>
+                        <div class="stat-name">Resolved reports</div>
+                        <div class="stat-note">Marked as resolved in your records</div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-icon purple-bg"><i data-lucide="leaf"></i></span>
+                            <span class="stat-caption">DAILY LEARNING</span>
+                        </div>
+                        <div class="stat-number" id="statTips">0</div>
+                        <div class="stat-name">Green challenges completed</div>
+                        <div class="stat-note">Your community challenge progress</div>
+                    </article>
+                </div>
+
+                <div class="content-grid">
+                    <article class="panel quick-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Quick actions</h3>
+                                <p>What would you like to do today?</p>
+                            </div>
+                            <i data-lucide="zap" class="heading-icon"></i>
+                        </div>
+
+                        <div class="quick-actions">
+                            <button class="quick-action" onclick="showPage('report')">
+                                <span class="quick-icon quick-green"><i data-lucide="map-pin"></i></span>
+                                <span><strong>Report waste</strong><small>Tell us about a waste issue</small></span>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                            <button class="quick-action" onclick="showPage('scanner')">
+                                <span class="quick-icon quick-blue"><i data-lucide="scan-search"></i></span>
+                                <span><strong>Identify an item</strong><small>Find the right waste category</small></span>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                            <button class="quick-action" onclick="showPage('assistant')">
+                                <span class="quick-icon quick-purple"><i data-lucide="messages-square"></i></span>
+                                <span><strong>Ask BinBuddy</strong><small>Get waste management guidance</small></span>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                            <button class="quick-action" onclick="showPage('calculator')">
+                                <span class="quick-icon quick-orange"><i data-lucide="calculator"></i></span>
+                                <span><strong>Calculate my impact</strong><small>Estimate your waste footprint</small></span>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                    </article>
+
+                    <article class="panel tip-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Today's green tip</h3>
+                                <p>One simple change can help.</p>
+                            </div>
+                            <span class="tip-sparkle">✳</span>
+                        </div>
+                        <div class="tip-illustration">🥬</div>
+                        <span class="tip-category">KITCHEN & COMPOSTING</span>
+                        <h3 id="dailyTipTitle">Give food scraps a second life</h3>
+                        <p id="dailyTipText">Keep fruit and vegetable scraps separate from dry recyclables. Compost them where a suitable service is available.</p>
+                        <button class="text-button" onclick="nextTip()">Show another tip <i data-lucide="arrow-right"></i></button>
+                    </article>
+                </div>
+
+                <div class="content-grid lower-grid">
+                    <article class="panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Recent reports</h3>
+                                <p>Keep track of the issues you have submitted.</p>
+                            </div>
+                            <button class="text-button" onclick="showPage('complaints')">View all <i data-lucide="arrow-up-right"></i></button>
+                        </div>
+                        <div id="recentReports" class="recent-reports"></div>
+                    </article>
+
+                    <article class="panel sensor-panel">
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Smart bin monitor</h3>
+                                <p>Basic IoT sensor demonstration</p>
+                            </div>
+                            <span class="sensor-status"><span class="online-dot"></span> DEMO</span>
+                        </div>
+                        <div class="sensor-bin-row">
+                            <div class="sensor-bin-icon"><i data-lucide="trash-2"></i></div>
+                            <div class="sensor-bin-info">
+                                <strong>Community bin BB-001</strong>
+                                <span id="sensorStatusText">Sample sensor reading</span>
+                            </div>
+                            <span class="sensor-percent" id="sensorPercent">65%</span>
+                        </div>
+                        <div class="progress-track"><div class="progress-fill" id="sensorProgress" style="width:65%"></div></div>
+                        <div class="sensor-foot">
+                            <span><i data-lucide="radio-tower"></i> Simulated fill level</span>
+                            <button class="text-button" onclick="simulateSensor()">Refresh demo</button>
+                        </div>
+                        <p class="fine-print">Demo only. A real sensor requires a connected IoT device and data service.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- REPORT PAGE -->
+            <section class="page" id="page-report">
+                <div class="page-title">
+                    <span class="eyebrow">HELP KEEP YOUR AREA CLEAN</span>
+                    <h1>Report a waste issue</h1>
+                    <p class="subtitle">Tell us what's happening so the issue can be recorded and followed up.</p>
+                </div>
+
+                <div class="form-layout">
+                    <form id="reportForm" class="panel form-panel">
+                        <h3>Issue details</h3>
+                        <p class="form-intro">Fields marked with * are required.</p>
+
+                        <label for="issueType">Type of issue *</label>
+                        <select id="issueType" required>
+                            <option value="">Select an issue</option>
+                            <option>Overflowing garbage bin</option>
+                            <option>Illegal dumping</option>
+                            <option>Uncollected garbage</option>
+                            <option>Litter on the street</option>
+                            <option>Damaged public bin</option>
+                            <option>Waste segregation problem</option>
+                            <option>Other</option>
+                        </select>
+
+                        <label for="issueLocation">Location or landmark *</label>
+                        <input id="issueLocation" required placeholder="e.g. Near the main bus stop">
+
+                        <label for="issueDescription">Describe the problem *</label>
+                        <textarea id="issueDescription" required rows="4" placeholder="Tell us what you noticed..."></textarea>
+
+                        <label for="issuePriority">Urgency</label>
+                        <select id="issuePriority">
+                            <option>Normal</option>
+                            <option>High</option>
+                            <option>Urgent</option>
+                        </select>
+
+                        <label for="issueImage">Attach a photo (optional)</label>
+                        <input type="file" id="issueImage" accept="image/*">
+                        <div id="issueImagePreview" class="image-preview"></div>
+
+                        <button class="primary-button full-button" type="submit">
+                            <i data-lucide="send"></i> Submit report
+                        </button>
+                        <p class="fine-print">This demo saves reports in your browser only. It does not automatically contact municipal services.</p>
+                    </form>
+
+                    <aside class="panel help-panel">
+                        <div class="help-illustration">🌍</div>
+                        <h3>Your report makes a difference.</h3>
+                        <p>Accurate details help waste management teams understand the problem and plan a response.</p>
+                        <div class="help-step"><span>1</span><div><strong>Report</strong><small>Describe the issue and location.</small></div></div>
+                        <div class="help-step"><span>2</span><div><strong>Track</strong><small>Use your report ID to follow progress.</small></div></div>
+                        <div class="help-step"><span>3</span><div><strong>Resolve</strong><small>Update the status when the issue is addressed.</small></div></div>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- COMPLAINTS PAGE -->
+            <section class="page" id="page-complaints">
+                <div class="page-title">
+                    <span class="eyebrow">YOUR SUBMISSIONS</span>
+                    <h1>Track complaints</h1>
+                    <p class="subtitle">Review reports, search by ID and update their demo status.</p>
+                </div>
+
+                <div class="panel">
+                    <div class="toolbar">
+                        <div class="search-box">
+                            <i data-lucide="search"></i>
+                            <input id="complaintSearch" placeholder="Search reports or locations...">
+                        </div>
+                        <select id="complaintFilter" class="filter-select">
+                            <option value="All">All statuses</option>
+                            <option value="Submitted">Submitted</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                    </div>
+                    <div id="complaintList" class="complaint-list"></div>
+                </div>
+            </section>
+
+            <!-- SCANNER PAGE -->
+            <section class="page" id="page-scanner">
+                <div class="page-title">
+                    <span class="eyebrow">SMARTER WASTE SORTING</span>
+                    <h1>AI waste scanner</h1>
+                    <p class="subtitle">Upload an item photo for a preview and get sorting guidance for common materials.</p>
+                </div>
+
+                <div class="scanner-layout">
+                    <div class="panel scanner-panel">
+                        <div class="upload-zone" id="uploadZone">
+                            <div class="upload-icon"><i data-lucide="image-plus"></i></div>
+                            <h3>Upload a waste item photo</h3>
+                            <p>Choose an image from your device to preview it.</p>
+                            <label class="secondary-button upload-button" for="wasteImage">
+                                <i data-lucide="upload"></i> Choose image
+                            </label>
+                            <input type="file" id="wasteImage" accept="image/*" hidden>
+                            <div id="wasteImagePreview" class="scanner-image-preview"></div>
+                        </div>
+
+                        <div class="divider-text"><span>OR TRY A COMMON ITEM</span></div>
+                        <div class="item-chips">
+                            <button onclick="classifyWaste('Plastic bottle')">🧴 Plastic bottle</button>
+                            <button onclick="classifyWaste('Banana peel')">🍌 Banana peel</button>
+                            <button onclick="classifyWaste('Paper')">📄 Paper</button>
+                            <button onclick="classifyWaste('Battery')">🔋 Battery</button>
+                            <button onclick="classifyWaste('Glass jar')">🫙 Glass jar</button>
+                            <button onclick="classifyWaste('Food leftovers')">🥗 Food leftovers</button>
+                            <button onclick="classifyWaste('Aluminium can')">🥫 Aluminium can</button>
+                            <button onclick="classifyWaste('Old phone')">📱 Old phone</button>
+                        </div>
+                        <p class="fine-print">Important: uploading a photo alone does not identify its contents. Actual AI image recognition needs a connected vision model.</p>
+                    </div>
+
+                    <div class="panel classification-panel">
+                        <div class="panel-heading">
+                            <div><h3>Sorting recommendation</h3><p>Guidance for your selected item</p></div>
+                            <i data-lucide="recycle" class="heading-icon"></i>
+                        </div>
+                        <div id="classificationResult" class="classification-result">
+                            <div class="empty-illustration">♻️</div>
+                            <h3>Ready when you are</h3>
+                            <p>Select a sample item to see its suggested category, disposal method and safety advice.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI ASSISTANT PAGE -->
+            <section class="page" id="page-assistant">
+                <div class="page-title">
+                    <span class="eyebrow">YOUR WASTE MANAGEMENT GUIDE</span>
+                    <h1>Ask BinBuddy</h1>
+                    <p class="subtitle">Explore recycling, composting, segregation and ways to reduce waste.</p>
+                </div>
+
+                <div class="chat-layout panel">
+                    <div class="chat-header">
+                        <div class="chat-avatar"><i data-lucide="recycle"></i></div>
+                        <div><strong>BinBuddy Assistant</strong><span><span class="online-dot"></span> Ready to help</span></div>
+                        <button class="icon-button" onclick="clearChat()" title="Clear conversation"><i data-lucide="rotate-ccw"></i></button>
+                    </div>
+
+                    <div class="suggested-questions">
+                        <button onclick="askSuggestion('How do I segregate household waste?')">How do I segregate waste?</button>
+                        <button onclick="askSuggestion('Can pizza boxes be recycled?')">Can pizza boxes be recycled?</button>
+                        <button onclick="askSuggestion('How should I dispose of batteries?')">How to dispose of batteries?</button>
+                        <button onclick="askSuggestion('How can I reduce plastic waste?')">Reduce plastic waste</button>
+                    </div>
+
+                    <div id="chatMessages" class="chat-messages" aria-live="polite">
+                        <div class="message bot-message">
+                            <div class="message-avatar">♻</div>
+                            <div class="message-bubble">
+                                <strong>Hello! I'm BinBuddy 🌿</strong>
+                                <p>Ask me about sorting everyday waste, recycling, composting, e-waste and sustainable habits. What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="chatForm" class="chat-input-area">
+                        <input id="chatInput" autocomplete="off" placeholder="Ask anything about waste management..." required>
+                        <button type="submit" class="send-button" aria-label="Send message"><i data-lucide="send"></i></button>
+                    </form>
+                    <p class="fine-print chat-disclaimer">The built-in assistant uses predefined guidance, not a live AI model. Local recycling rules may differ.</p>
+                </div>
+            </section>
+
+            <!-- CALCULATOR PAGE -->
+            <section class="page" id="page-calculator">
+                <div class="page-title">
+                    <span class="eyebrow">MEASURE YOUR EVERYDAY HABITS</span>
+                    <h1>Waste impact calculator</h1>
+                    <p class="subtitle">Estimate how much household waste you generate and identify opportunities to reduce it.</p>
+                </div>
+
+                <div class="calculator-layout">
+                    <form id="calculatorForm" class="panel calculator-form">
+                        <h3>Your weekly waste estimate</h3>
+                        <p class="form-intro">Enter approximate quantities in kilograms per week.</p>
+
+                        <div class="range-field">
+                            <div class="range-label"><label for="organicWaste">Food and garden waste</label><strong><span id="organicValue">3</span> kg</strong></div>
+                            <input type="range" id="organicWaste" min="0" max="20" value="3" step="0.5">
+                        </div>
+                        <div class="range-field">
+                            <div class="range-label"><label for="plasticWaste">Plastic waste</label><strong><span id="plasticValue">1</span> kg</strong></div>
+                            <input type="range" id="plasticWaste" min="0" max="10" value="1" step="0.5">
+                        </div>
+                        <div class="range-field">
+                            <div class="range-label"><label for="paperWaste">Paper and cardboard</label><strong><span id="paperValue">1</span> kg</strong></div>
+                            <input type="range" id="paperWaste" min="0" max="10" value="1" step="0.5">
+                        </div>
+                        <div class="range-field">
+                            <div class="range-label"><label for="otherWaste">Other mixed waste</label><strong><span id="otherValue">2</span> kg</strong></div>
+                            <input type="range" id="otherWaste" min="0" max="20" value="2" step="0.5">
+                        </div>
+                        <button type="submit" class="primary-button full-button"><i data-lucide="calculator"></i> Calculate my impact</button>
+                    </form>
+
+                    <div class="panel calculator-results">
+                        <div class="result-leaf">🌱</div>
+                        <span class="eyebrow">YOUR ESTIMATED TOTAL</span>
+                        <div class="big-result"><span id="weeklyTotal">7</span><small>kg / week</small></div>
+                        <div class="result-divider"></div>
+                        <div class="result-row"><span>Estimated monthly waste</span><strong id="monthlyTotal">30.4 kg</strong></div>
+                        <div class="result-row"><span>Estimated yearly waste</span><strong id="yearlyTotal">364 kg</strong></div>
+                        <div class="result-row"><span>Potential 20% reduction</span><strong id="reductionTotal">1.4 kg/week</strong></div>
+                        <div class="insight-box"><i data-lucide="lightbulb"></i><p id="calculatorInsight">Separating food scraps and reducing packaging can help lower mixed waste.</p></div>
+                        <p class="fine-print">Estimates only. This calculator does not measure actual emissions or verify recycling outcomes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REPORTS PAGE -->
+            <section class="page" id="page-reports">
+                <div class="page-title page-title-row">
+                    <div>
+                        <span class="eyebrow">YOUR ACTIVITY AT A GLANCE</span>
+                        <h1>Progress & reports</h1>
+                        <p class="subtitle">Review your recorded complaints and export your data.</p>
+                    </div>
+                    <button class="primary-button" onclick="exportReports()"><i data-lucide="download"></i> Export CSV</button>
+                </div>
+
+                <div class="stats-grid report-stats">
+                    <article class="stat-card"><span class="stat-caption">TOTAL</span><div class="stat-number" id="reportTotal">0</div><div class="stat-name">Reports submitted</div></article>
+                    <article class="stat-card"><span class="stat-caption">SUBMITTED</span><div class="stat-number" id="reportSubmitted">0</div><div class="stat-name">Awaiting review</div></article>
+                    <article class="stat-card"><span class="stat-caption">IN PROGRESS</span><div class="stat-number" id="reportInProgress">0</div><div class="stat-name">Being addressed</div></article>
+                    <article class="stat-card"><span class="stat-caption">RESOLVED</span><div class="stat-number" id="reportResolved">0</div><div class="stat-name">Marked resolved</div></article>
+                </div>
+
+                <div class="content-grid">
+                    <div class="panel">
+                        <div class="panel-heading"><div><h3>Complaint status</h3><p>Distribution of reports saved on this device</p></div></div>
+                        <div id="statusChart" class="status-chart"></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-heading"><div><h3>Keep making progress</h3><p>Simple ways to build a cleaner routine</p></div></div>
+                        <div class="progress-tip"><span>01</span><div><strong>Sort before disposal</strong><p>Separate wet waste, dry recyclables and special waste.</p></div></div>
+                        <div class="progress-tip"><span>02</span><div><strong>Reuse what you can</strong><p>Choose reusable bags and bottles when practical.</p></div></div>
+                        <div class="progress-tip"><span>03</span><div><strong>Report local problems</strong><p>Share clear descriptions and locations.</p></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COMMUNITY PAGE -->
+            <section class="page" id="page-community">
+                <div class="page-title">
+                    <span class="eyebrow">SMALL ACTIONS, SHARED IMPACT</span>
+                    <h1>Community & green habits</h1>
+                    <p class="subtitle">Build everyday habits that help keep your home and neighbourhood cleaner.</p>
+                </div>
+
+                <div class="community-hero">
+                    <div><span class="hero-tag">YOUR WEEKLY CHALLENGE</span><h2>Seven days.<br>Seven greener choices.</h2><p>Complete a small action each day and build a routine you can maintain.</p></div>
+                    <div class="community-emoji">🌳</div>
+                </div>
+
+                <div class="section-heading"><div><h2>Your daily challenges</h2><p>Tick off each activity when you've completed it.</p></div><span class="demo-label" id="challengeProgress">0 of 7 completed</span></div>
+
+                <div class="challenge-grid" id="challengeGrid"></div>
+
+                <div class="panel community-tip-panel">
+                    <div class="tip-illustration">💚</div>
+                    <div><h3>Make sustainability a habit</h3><p>You don't need to do everything perfectly. Start with one useful change, repeat it, and build from there.</p><button class="primary-button" onclick="showPage('assistant')">Ask BinBuddy for ideas <i data-lucide="arrow-right"></i></button></div>
+                </div>
+            </section>
+
+            <footer class="main-footer">
+                <a class="footer-brand" href="#" onclick="showPage('home'); return false;">♻ BinBuddy</a>
+                <span>Cleaner habits, healthier surroundings.</span>
+                <span>Student project demonstration</span>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

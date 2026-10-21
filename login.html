@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <style>
+        body {
+            background: linear-gradient(to right,#1c4d42, #81b69b);
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+            color: #180202;
+        }
+
+        input {
+            padding: 8px;
+            width: 250px;
+        }
+
+        button {
+            padding: 8px 20px;
+            background-color: #61bba6;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #68cfa1;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(12, 64, 55);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Login</h2>
+
+    <form onsubmit="return loginUser()">
+        <input type="email" id="email" placeholder="Email" required><br><br>
+        <input type="password" id="password" placeholder="Password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <p><a href="signup.html">Create New Account</a></p>
+
+<script>
+function loginUser() {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    let storedUser = localStorage.getItem(email);
+
+    if (!storedUser) {
+        alert("User not found! Please sign up.");
+        return false;
+    }
+
+    let user = JSON.parse(storedUser);
+
+    if (user.password === password) {
+        alert("Login Successful!");
+        window.location.href = "mainpg.html";   // ✅ Correct file name
+    } else {
+        alert("Incorrect Password!");
+    }
+
+    return false;
+}
+</script>
+
+</body>
+</html>
+
+
+<script>
+function loginUser() {
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value;
+
+    let storedUser = localStorage.getItem(email);
+
+    if (!storedUser) {
+        alert("User not found! Please sign up.");
+        return false;
+    }
+
+    let user = JSON.parse(storedUser);
+
+    if (user.password === password) {
+        alert("Login Successful!");
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Incorrect Password!");
+    }
+
+    return false;
+}
+</script>

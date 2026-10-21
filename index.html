@@ -1,0 +1,993 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BinBuddy | Smart Waste Management</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green: #246b45;
+            --dark-green: #153f2b;
+            --light-green: #eaf3e8;
+            --cream: #faf9f3;
+            --text: #24352a;
+            --muted: #6b796e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--text);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 7%;
+            background: rgba(250, 249, 243, 0.96);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e6eade;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 25px;
+            font-weight: 800;
+            color: var(--dark-green);
+        }
+
+        .logo-icon {
+            background: var(--green);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+        }
+
+        .logo span {
+            color: #78a85c;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #5b914c;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 13px 21px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: 0.25s;
+        }
+
+        .btn-outline {
+            border-color: #cdd9cc;
+            color: var(--dark-green);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--light-green);
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            gap: 55px;
+            padding: 75px 7% 85px;
+            min-height: 570px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #e6f0df;
+            color: #346b3e;
+            border-radius: 30px;
+            padding: 9px 15px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow-dot {
+            width: 8px;
+            height: 8px;
+            background: #66a65c;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(40px, 5vw, 65px);
+            line-height: 1.12;
+            letter-spacing: -2.5px;
+            color: var(--dark-green);
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #78a85c;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.9;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .hero-buttons .btn {
+            padding: 16px 23px;
+        }
+
+        .hero-note {
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #627465;
+            font-size: 12px;
+        }
+
+        .hero-note span {
+            color: #46824f;
+            font-size: 18px;
+        }
+
+        .hero-image {
+            position: relative;
+            min-width: 0;
+        }
+
+        .hero-image img {
+            display: block;
+            width: 100%;
+            height: 440px;
+            object-fit: cover;
+            border-radius: 24px;
+        }
+
+        .image-label {
+            position: absolute;
+            left: -25px;
+            bottom: 25px;
+            background: white;
+            padding: 17px 20px;
+            border-radius: 15px;
+            box-shadow: 0 12px 35px #1c40251c;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .label-icon {
+            width: 43px;
+            height: 43px;
+            background: #e5f1df;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+        }
+
+        .image-label strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .image-label small {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        /* INTRO STRIP */
+
+        .impact-strip {
+            margin: 0 7%;
+            padding: 30px 35px;
+            background: var(--dark-green);
+            color: white;
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .impact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .impact-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            background: #ffffff16;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+        }
+
+        .impact-item h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .impact-item p {
+            color: #c3d6c6;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        /* FEATURES */
+
+        .section {
+            padding: 95px 7%;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 620px;
+            margin: 0 auto 45px;
+        }
+
+        .section-tag {
+            color: #4f8b50;
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(29px, 3.5vw, 42px);
+            line-height: 1.25;
+            letter-spacing: -1px;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+        }
+
+        .section-heading p {
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            border: 1px solid #e5e9de;
+            background: #fffefa;
+            border-radius: 18px;
+            transition: 0.25s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px #214a2910;
+            border-color: #bed5b7;
+        }
+
+        .feature-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 15px;
+            background: var(--light-green);
+            display: grid;
+            place-items: center;
+            font-size: 26px;
+            margin-bottom: 23px;
+        }
+
+        .feature-card h3 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 17px;
+            margin-bottom: 12px;
+            color: var(--dark-green);
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            line-height: 1.85;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .feature-link {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .feature-link:hover {
+            color: #78a85c;
+        }
+
+        /* HOW IT WORKS */
+
+        .how-section {
+            background: #edf3e8;
+            padding: 85px 7%;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 62px;
+            height: 62px;
+            margin: 0 auto 20px;
+            display: grid;
+            place-items: center;
+            background: var(--green);
+            color: white;
+            border-radius: 50%;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .step h3 {
+            color: var(--dark-green);
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* CTA */
+
+        .cta {
+            margin: 85px 7%;
+            padding: 55px 45px;
+            background: var(--dark-green);
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            color: white;
+        }
+
+        .cta h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: clamp(27px, 3vw, 38px);
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            color: #c4d7c7;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .cta .btn {
+            background: #cce6b9;
+            color: var(--dark-green);
+            flex-shrink: 0;
+        }
+
+        .cta .btn:hover {
+            background: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #f0f0e7;
+            padding: 40px 7% 25px;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            padding-bottom: 30px;
+        }
+
+        .footer-description {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+            margin-top: 12px;
+            max-width: 320px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #536454;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .footer-links a:hover {
+            color: var(--green);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #dce2d6;
+            padding-top: 20px;
+            color: #748073;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .hero {
+                padding: 55px 5%;
+                gap: 35px;
+            }
+
+            .hero-image img {
+                height: 370px;
+            }
+
+            .impact-strip {
+                margin: 0 5%;
+                padding: 25px;
+            }
+
+            .section,
+            .how-section {
+                padding: 70px 5%;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta {
+                margin: 65px 5%;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+                padding-top: 12px;
+                border-top: 1px solid #e6eade;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .nav-actions {
+                gap: 7px;
+            }
+
+            .nav-actions .btn {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 45px;
+                gap: 35px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .hero-image img {
+                height: 310px;
+            }
+
+            .image-label {
+                left: 12px;
+                bottom: 12px;
+                padding: 12px;
+            }
+
+            .impact-strip {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 25px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .cta {
+                padding: 35px 25px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links {
+                gap: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+
+    <nav class="navbar">
+        <a href="#home" class="logo">
+            <div class="logo-icon">♻</div>
+            Bin<span>Buddy</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#about">About</a>
+        </div>
+
+        <div class="nav-actions">
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="signup.html" class="btn btn-primary">Get Started ↗</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                A SMARTER WAY TO MANAGE WASTE
+            </div>
+
+            <h1>
+                Make Every<br>
+                Waste Count<span>.</span>
+            </h1>
+
+            <p>
+                A cleaner planet starts with small actions.
+                Report waste issues, track complaints, discover
+                smarter waste segregation and make your surroundings
+                a greener place with BinBuddy.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="signup.html" class="btn btn-primary">
+                    Start Your Journey ↗
+                </a>
+
+                <a href="#features" class="btn btn-outline">
+                    Explore Features ↓
+                </a>
+            </div>
+
+            <div class="hero-note">
+                <span>✳</span>
+                Small steps today. A greener tomorrow.
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+            <img
+                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1000&q=85"
+                alt="Green planet and environmental sustainability"
+            >
+
+            <div class="image-label">
+                <div class="label-icon">🌱</div>
+                <div>
+                    <strong>Every Action Matters</strong>
+                    <small>Join the cleaner future movement</small>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- INTRODUCTION STRIP -->
+
+    <section class="impact-strip">
+
+        <div class="impact-item">
+            <div class="impact-icon">♻️</div>
+            <div>
+                <h3>Smart Waste Segregation</h3>
+                <p>Identify and separate waste responsibly.</p>
+            </div>
+        </div>
+
+        <div class="impact-item">
+            <div class="impact-icon">📍</div>
+            <div>
+                <h3>Easy Complaint Reporting</h3>
+                <p>Report local waste problems conveniently.</p>
+            </div>
+        </div>
+
+        <div class="impact-item">
+            <div class="impact-icon">🌍</div>
+            <div>
+                <h3>Environmental Awareness</h3>
+                <p>Make informed, eco-friendly choices.</p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES SECTION -->
+
+    <section class="section" id="features">
+
+        <div class="section-heading">
+            <div class="section-tag">What BinBuddy Offers</div>
+
+            <h2>Everything You Need for a Cleaner Community</h2>
+
+            <p>
+                One simple platform to report waste problems,
+                monitor their progress and learn better ways
+                to manage waste.
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">🗑️</div>
+                <h3>Report Waste Issues</h3>
+                <p>
+                    Report overflowing garbage bins, improper
+                    waste disposal and uncollected garbage
+                    to help keep your surroundings clean.
+                </p>
+                <a href="login.html" class="feature-link">
+                    Report an Issue ↗
+                </a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Track My Complaints</h3>
+                <p>
+                    Check the progress of your submitted complaints
+                    and stay informed about their resolution status.
+                </p>
+                <a href="login.html" class="feature-link">
+                    Track Complaints ↗
+                </a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Waste Classification</h3>
+                <p>
+                    Use image-based waste classification to help
+                    identify categories such as plastic, metal,
+                    paper and biodegradable waste.
+                </p>
+                <a href="login.html" class="feature-link">
+                    Explore Classification ↗
+                </a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Energy Calculator</h3>
+                <p>
+                    Explore the energy-related benefits of
+                    responsible waste management and recycling
+                    through a dedicated calculator.
+                </p>
+                <a href="login.html" class="feature-link">
+                    Try Calculator ↗
+                </a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Progress & Reports</h3>
+                <p>
+                    Organize complaint information and view
+                    waste management reports through the
+                    appropriate dashboard.
+                </p>
+                <a href="login.html" class="feature-link">
+                    View Dashboard ↗
+                </a>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Community Participation</h3>
+                <p>
+                    Encourage citizens and waste management
+                    authorities to work together for cleaner
+                    and healthier surroundings.
+                </p>
+                <a href="#about" class="feature-link">
+                    Learn More ↗
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="how-section" id="how-it-works">
+
+        <div class="section-heading">
+            <div class="section-tag">Simple and Convenient</div>
+            <h2>How BinBuddy Works</h2>
+            <p>
+                Getting started is simple. Take a small step
+                toward a cleaner environment.
+            </p>
+        </div>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3>Create Your Account</h3>
+                <p>
+                    Sign up to access BinBuddy's waste
+                    management features.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3>Report or Classify Waste</h3>
+                <p>
+                    Submit a waste complaint or use the
+                    waste classification feature.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3>Track and Stay Informed</h3>
+                <p>
+                    Follow complaint progress and learn
+                    more about responsible waste management.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT SECTION -->
+
+    <section class="section" id="about">
+
+        <div class="section-heading">
+            <div class="section-tag">About BinBuddy</div>
+
+            <h2>Technology for a Greener Tomorrow</h2>
+
+            <p>
+                BinBuddy is a smart waste management web application
+                designed to improve waste segregation, simplify
+                complaint handling and promote environmental
+                awareness. By combining web technologies, database
+                management and AI-based waste classification,
+                BinBuddy aims to support cleaner communities
+                and more efficient waste management.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- CALL TO ACTION -->
+
+    <section class="cta">
+
+        <div>
+            <h2>Ready to Make a Difference?</h2>
+            <p>
+                Take the first step toward a cleaner,
+                greener and more responsible community.
+            </p>
+        </div>
+
+        <a href="signup.html" class="btn">
+            Join BinBuddy Today ↗
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-top">
+
+            <div>
+                <a href="#home" class="logo">
+                    <div class="logo-icon">♻</div>
+                    Bin<span>Buddy</span>
+                </a>
+
+                <p class="footer-description">
+                    Smart waste management starts with you.
+                    Let's build a cleaner future together.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#about">About Us</a>
+                <a href="login.html">Login</a>
+                <a href="signup.html">Sign Up</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 BinBuddy | Smart Waste Management Mini Project
+        </div>
+
+    </footer>
+
+</body>
+</html>
