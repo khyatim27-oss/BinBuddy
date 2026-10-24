@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Classify | BinBuddy</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #faf5ed;
+            color: #282421;
+            font: 16px/1.6 Arial;
+        }
+
+        header {
+            padding: 18px 6%;
+            background: #fff;
+            border-bottom: 1px solid #eadfd5;
+        }
+
+        header a {
+            color: #762b3b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            max-width: 760px;
+            margin: 38px auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #eadfd5;
+            border-radius: 18px;
+            padding: 26px;
+        }
+
+        button,
+        .btn {
+            background: #762b3b;
+            color: white;
+            border: 0;
+            border-radius: 9px;
+            padding: 12px 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        input,
+        select {
+            display: block;
+            margin: 8px 0 18px;
+            padding: 11px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #cfc4bb;
+            border-radius: 8px;
+        }
+
+        .error {
+            color: #a0182a;
+        }
+
+        .note {
+            background: #f6eee6;
+            padding: 12px;
+            border-radius: 9px;
+        }
+
+        .muted {
+            color: #756d67;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/">← BinBuddy</a>
+        　
+        <a href="/dashboard">Dashboard</a>
+    </header>
+
+    <main>
+        <h1>Classify a waste item</h1>
+
+        <p class="muted">
+            Use a clear photo of one item.
+            Maximum image size: 8 MB.
+        </p>
+
+        <section class="panel">
+            <form method="post" enctype="multipart/form-data">
+                <label for="image">
+                    <b>Choose an image</b>
+                </label>
+
+                <input
+                    id="image"
+                    name="image"
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    required
+                >
+
+                <button type="submit">
+                    Predict category
+                </button>
+            </form>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            {% if result %}
+                <hr>
+
+                <h2>Prediction result</h2>
+
+                <p>
+                    <b>Predicted category:</b>
+                    {{ result.predicted.replace('_', ' ').title() }}
+                </p>
+
+                <p>
+                    <b>Model confidence:</b>
+                    {{ result.confidence }}%
+                </p>
+
+                <div class="note">
+                    {{ result.note }}
+                </div>
+
+                {% if result.can_confirm %}
+                    <h3>Confirm the correct category</h3>
+
+                    <p>
+                        Choose the verified category.
+                        Your choice, the prediction and confidence
+                        will be saved.
+                    </p>
+
+                    <form method="post" action="/confirm">
+                        <input
+                            type="hidden"
+                            name="filename"
+                            value="{{ result.filename }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="predicted"
+                            value="{{ result.predicted }}"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="confidence"
+                            value="{{ result.confidence }}"
+                        >
+
+                        <label for="verified">
+                            <b>Correct category</b>
+                        </label>
+
+                        <select
+                            name="verified"
+                            id="verified"
+                            required
+                        >
+                            <option value="">Choose one</option>
+                            <option value="wet_waste">
+                                Wet waste
+                            </option>
+                            <option value="dry_waste">
+                                Dry waste
+                            </option>
+                        </select>
+
+                        <button type="submit">
+                            Confirm and save record
+                        </button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
+
