@@ -52,7 +52,7 @@ Keep the terminal open while using the website. Press Ctrl+C to stop the server.
 Troubleshooting
 - Model not trained yet: complete steps 5 and 6; check that models/waste_classifier.keras exists.
 - No images found: check folder spelling and ensure each train/val class folder has supported image files.
-- TensorFlow install fails: use Python 3.11 64-bit and recreate the virtual environment.
+- TensorFlow install fails: use Python 3.13 64-bit and recreate the virtual environment.
 - Dashboard is empty: upload an image and submit the confirmation form. Predictions alone are not saved until you confirm.
 - Low accuracy: collect more varied, correctly labelled images; ensure wet and dry images are both present; check for duplicate photos across splits; inspect the confusion matrix.
 Current limitations
